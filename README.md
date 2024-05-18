@@ -34,15 +34,25 @@ According to this table, 4/6 (or 66%) of all guesses are correct.
 ## Simulation
 
 This project implements a simulation on a two naive guessing strategies and the one described above.
+For the comparison against a random number, two distributions are picked:
+
+- A uniform distribution over the input value range,
+- A normal distribution with μ=0 and σ=10
 
 ```plain
-Evaluating strategy: Always guess the same outcome (1000000 trials)
-  Probability of correct guess: 50.05%
-Evaluating strategy: Always guess a random outcome (1000000 trials)
-  Probability of correct guess: 49.94%
-Evaluating strategy: Comparison with a random draw (1000000 trials)
-  Probability of correct guess: 66.69%
+Simulating strategies with 1000000 trials each.
+Evaluating strategy: Always guess the same outcome
+  Probability of correct guess: 49.91%
+Evaluating strategy: Always guess a random outcome
+  Probability of correct guess: 49.99%
+Evaluating strategy: Comparison with a random draw (uniform distribution)
+  Probability of correct guess: 66.74%
+Evaluating strategy: Comparison with a random draw (normal distribution)
+  Probability of correct guess: 75.01%
 ```
+
+As we can see, both random trials outperform 50/50 guessing chance. The strategy using a normal distribution
+results in an even higher winning probability.
 
 ## Citation
 

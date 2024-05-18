@@ -1,4 +1,6 @@
+use rand::distributions::Distribution;
 use rand::Rng;
+use rand_distr::Normal;
 
 const LOW: i32 = i32::MIN;
 const HIGH: i32 = i32::MAX;
@@ -6,15 +8,23 @@ const TRIALS: usize = 1000000;
 
 type Strategy = fn(i32) -> Decision;
 
-const STRATEGIES: [(&str, Strategy); 3] = [
+const STRATEGIES: [(&str, Strategy); 4] = [
     ("Always guess the same outcome", always_same_guess_strategy),
     ("Always guess a random outcome", random_guess_strategy),
-    ("Comparison with a random draw", randomized_strategy),
+    (
+        "Comparison with a random draw (uniform distribution)",
+        randomized_strategy,
+    ),
+    (
+        "Comparison with a random draw (normal distribution)",
+        randomized_normal_strategy,
+    ),
 ];
 
 fn main() {
+    println!("Simulating strategies with {TRIALS} trials each.");
     for (name, strategy) in STRATEGIES {
-        println!("Evaluating strategy: {name} ({TRIALS} trials)");
+        println!("Evaluating strategy: {name}");
         let success_rate = evaluate_strategy(strategy);
         println!(
             "  Probability of correct guess: {:.2}%",
@@ -65,6 +75,16 @@ fn randomized_strategy(first: i32) -> Decision {
     }
 }
 
+/// Similar to [`randomized_strategy`], but using a normal distribution instead.
+fn randomized_normal_strategy(first: i32) -> Decision {
+    let comparison = rand_norm_in_range(0.0, 10.0);
+    if comparison >= first {
+        Decision::SecondIsHigher
+    } else {
+        Decision::SecondIsLower
+    }
+}
+
 fn evaluate_strategy(strategy: Strategy) -> f32 {
     let mut correct = 0;
     for _ in 0..TRIALS {
@@ -94,6 +114,12 @@ fn rand_in_range(low: i32, high: i32) -> i32 {
     let mut rng = rand::thread_rng();
 
     rng.gen_range(low..=high)
+}
+
+fn rand_norm_in_range(mu: f64, sigma: f64) -> i32 {
+    let mut rng = rand::thread_rng();
+    let normal = Normal::new(mu, sigma).expect("failed to get normal distribution");
+    normal.sample(&mut rng) as i32
 }
 
 #[derive(Eq, PartialEq)]
