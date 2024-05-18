@@ -1,7 +1,8 @@
 # The Number Guessing "Paradox"
 
 Based on the chapter "Pick the largest Number" by Thomas M. Cover in 1987's
-"Open Problems in Communication and Computation":
+"Open Problems in Communication and Computation" (see
+e.g. [here](https://www-isl.stanford.edu/~cover/papers/paper73.pdf)):
 
 > Player 1 writes down any two distinct numbers on separate slips of paper.
 > Player 2 randomly chooses one of these slips of paper and looks at the number.
@@ -52,7 +53,7 @@ Evaluating strategy: Comparison with a random draw (normal distribution)
 ```
 
 As we can see, both random trials outperform 50/50 guessing chance. The strategy using a normal distribution
-results in an even higher winning probability.
+results in an even higher winning probability at ~75% correct guesses.
 
 ## Citation
 
