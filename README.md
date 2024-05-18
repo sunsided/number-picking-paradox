@@ -1,4 +1,4 @@
-# The Number Guessing "Paradox"
+# 🎲 The Number Guessing "Paradox"
 
 Based on the chapter "Pick the largest Number" by Thomas M. Cover in 1987's
 "Open Problems in Communication and Computation" (see
